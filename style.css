@@ -1,6 +1,23 @@
+.start-game {
+  margin: 0 auto;
+  color: aliceblue;
+  background-color: gray;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+}
+
 .guess_container {
   display: flex;
   width: 100%;
+}
+
+.hide {
+  display: none;
 }
 
 .guess_box {
