@@ -27,12 +27,20 @@ function game() {
 // level info
 
 // set game
+let intScore = 0;
 let score = 0;
 let roundEnded = true;
 let guessBox = document.createElement("div");
-let level = 4;
-let colorRange = 255;
+let level = 3;
+let colorRange = 200;
 let diff = undefined;
+let diffInc = true;
+
+function genRandDiff() {
+  return (
+    Math.random() < 0.5 ? -1 : 1 * Math.floor(Math.random() * colorRange)
+  ).clamp(0, 255);
+}
 
 function setGame() {
   roundEnded = false;
@@ -46,15 +54,9 @@ function setGame() {
 
   //Set colour for diff blocks
   // (color plus or minus a random number between the range) clamped to valid RGB range
-  let red_diff =
-    red +
-    (Math.random() < 0.5 ? -1 : 1 * Math.floor(Math.random() * colorRange));
-  let green_diff =
-    green +
-    (Math.random() < 0.5 ? -1 : 1 * Math.floor(Math.random() * colorRange));
-  let blue_diff =
-    blue +
-    (Math.random() < 0.5 ? -1 : 1 * Math.floor(Math.random() * colorRange));
+  let red_diff = red + genRandDiff();
+  let green_diff = green + genRandDiff();
+  let blue_diff = blue + genRandDiff();
 
   for (let i = 0; i < level; ++i) {
     let guessBox = document.createElement("div");
@@ -76,28 +78,35 @@ function setGame() {
 // check for correct tile
 function checkTile(boxID) {
   if (!roundEnded && boxID.split("guess-box-")[1] == diff) {
+    intScore++;
     score++;
+    alert(`Correct!\nYour score is: ${score}`);
   } else {
-    score--;
+    intScore--;
+    alert(`Wrong!\nYour score is: ${score}`);
   }
-  console.log(score);
+  console.table({ intScore, level, colorRange });
   roundEnded = true;
   if (
-    (level < 8 && score > 4) ||
-    (level < 11 && score > 3) ||
-    (level < 13 && score > 2) ||
-    level >= 13
+    diffInc &&
+    ((level < 4 && intScore > 3) ||
+      (level >= 4 && level < 6 && intScore > 2) ||
+      (level >= 6 && level < 8 && intScore > 1) ||
+      level >= 8)
   ) {
-    level = Math.min(level + 1, 15);
+    level = Math.min(level + 1, 10);
+    if (level <= 9) alert(`New Level Reached 🎉🎉🎉\nLEVEL ${level - 2}`);
+    diffInc = false;
   }
   if (
-    (level < 8 && score > 6) ||
-    (level < 11 && score > 5) ||
-    (level < 13 && score > 3) ||
-    level >= 13
+    (level < 4 && intScore > 4) ||
+    (level >= 4 && level < 6 && intScore > 3) ||
+    (level >= 6 && level < 8 && intScore > 2) ||
+    level >= 8
   ) {
-    colorRange = Math.max(10, colorRange - 15);
-    if (level < 13) score = 0;
+    colorRange = Math.max(20, colorRange - 3 * level);
+    if (level < 9) intScore = 0;
+    diffInc = true;
   }
   setGame();
 }
