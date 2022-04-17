@@ -13,7 +13,10 @@ Number.prototype.clamp = function (min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
-const containerBox = document.querySelector(".guess_container");
+const containerBox = document.querySelector(".guess-container");
+const infoContainer = document.querySelector(".info-container");
+const scoreDiv = document.querySelector("#score");
+const levelDiv = document.querySelector("#level");
 
 // start game
 const startGame = document.querySelector(".start-game");
@@ -37,9 +40,7 @@ let diff = undefined;
 let diffInc = true;
 
 function genRandDiff() {
-  return (
-    Math.random() < 0.5 ? -1 : 1 * Math.floor(Math.random() * colorRange)
-  ).clamp(0, 255);
+  return Math.random() < 0.5 ? -1 : 1 * Math.floor(Math.random() * colorRange);
 }
 
 function setGame() {
@@ -54,9 +55,9 @@ function setGame() {
 
   //Set colour for diff blocks
   // (color plus or minus a random number between the range) clamped to valid RGB range
-  let red_diff = red + genRandDiff();
-  let green_diff = green + genRandDiff();
-  let blue_diff = blue + genRandDiff();
+  let red_diff = (red + genRandDiff()).clamp(0, 255);
+  let green_diff = (green + genRandDiff()).clamp(0, 255);
+  let blue_diff = (blue + genRandDiff()).clamp(0, 255);
 
   for (let i = 0; i < level; ++i) {
     let guessBox = document.createElement("div");
@@ -71,6 +72,8 @@ function setGame() {
       containerBox.appendChild(guessBox);
     }
   }
+  scoreDiv.textContent = `Score: ${score}`;
+  levelDiv.textContent = `Level: ${level - 2}`;
   return diff;
 }
 
@@ -80,11 +83,14 @@ function checkTile(boxID) {
   if (!roundEnded && boxID.split("guess-box-")[1] == diff) {
     intScore++;
     score++;
+    scoreDiv.style.color = "green";
     // alert(`Correct!\nYour score is: ${score}`);
   } else {
     intScore--;
+    scoreDiv.style.color = "red";
     // alert(`Wrong!\nYour score is: ${score}`);
   }
+  levelDiv.style.color = "black";
   roundEnded = true;
   if (
     diffInc &&
@@ -94,9 +100,11 @@ function checkTile(boxID) {
       level >= 8)
   ) {
     level = Math.min(level + 1, 10);
-    if (level <= 9)
+    if (level <= 9) {
       // alert(`New Level Reached 🎉🎉🎉\nLEVEL ${level - 2}`);
-      diffInc = false;
+      levelDiv.style.color = "green";
+    }
+    diffInc = false;
   }
   if (
     (level < 4 && intScore > 4) ||
@@ -108,13 +116,6 @@ function checkTile(boxID) {
     if (level < 9) intScore = 0;
     diffInc = true;
   }
-  console.table({ intScore, level, colorRange });
+  // console.table({ intScore, level, colorRange });
   setGame();
 }
-// reset game
-
-// update game
-
-// next level
-
-// guessBox.addEventListener();

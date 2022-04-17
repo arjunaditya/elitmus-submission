@@ -19,9 +19,10 @@ main {
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
+  cursor: pointer;
 }
 
-.guess_container {
+.guess-container {
   display: flex;
   justify-content: space-evenly;
   flex-flow: row wrap;
@@ -47,4 +48,12 @@ main {
 }
 .guess_box:current {
   transform: rotate(1080);
+}
+
+.info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-size: 2rem;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
