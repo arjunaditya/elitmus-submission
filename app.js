@@ -24,6 +24,7 @@ startGame.addEventListener("click", game);
 
 function game() {
   startGame.classList.add("hide");
+  infoContainer.classList.remove("hide");
   setGame();
 }
 

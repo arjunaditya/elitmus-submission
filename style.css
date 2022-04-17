@@ -4,9 +4,6 @@ body {
   padding: 0;
   background-color: #c5c5c5;
 }
-/* 
-main {
-} */
 
 .start-game {
   margin: 0 auto;
@@ -27,10 +24,6 @@ main {
   justify-content: space-evenly;
   flex-flow: row wrap;
   width: 100%;
-}
-
-.hide {
-  display: none;
 }
 
 .guess_box {
@@ -56,4 +49,8 @@ main {
   justify-content: space-evenly;
   font-size: 2rem;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.hide {
+  display: none;
 }
