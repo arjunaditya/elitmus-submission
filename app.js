@@ -80,12 +80,11 @@ function checkTile(boxID) {
   if (!roundEnded && boxID.split("guess-box-")[1] == diff) {
     intScore++;
     score++;
-    alert(`Correct!\nYour score is: ${score}`);
+    // alert(`Correct!\nYour score is: ${score}`);
   } else {
     intScore--;
-    alert(`Wrong!\nYour score is: ${score}`);
+    // alert(`Wrong!\nYour score is: ${score}`);
   }
-  console.table({ intScore, level, colorRange });
   roundEnded = true;
   if (
     diffInc &&
@@ -95,8 +94,9 @@ function checkTile(boxID) {
       level >= 8)
   ) {
     level = Math.min(level + 1, 10);
-    if (level <= 9) alert(`New Level Reached 🎉🎉🎉\nLEVEL ${level - 2}`);
-    diffInc = false;
+    if (level <= 9)
+      // alert(`New Level Reached 🎉🎉🎉\nLEVEL ${level - 2}`);
+      diffInc = false;
   }
   if (
     (level < 4 && intScore > 4) ||
@@ -108,6 +108,7 @@ function checkTile(boxID) {
     if (level < 9) intScore = 0;
     diffInc = true;
   }
+  console.table({ intScore, level, colorRange });
   setGame();
 }
 // reset game
