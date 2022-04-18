@@ -8,6 +8,21 @@ body {
 main {
 } */
 
+.instructions {
+  color: darkblue;
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.instructions h2 {
+  margin: 0.4rem 0;
+}
+
+.odd {
+  color: cadetblue;
+}
+
 .start-game {
   margin: 0 auto;
   color: aliceblue;
